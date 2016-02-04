@@ -38,28 +38,28 @@ include Alphabet
   #   }
   # end
 
-  def braille_to_letter(braille)
-    Alphabet.English[braille][TOP]
-    alphabet.English[braille][MID]
-    alphabet.English[braille][BOT]
-  end
+  def letter_to_braille(letter)
+    {TOP => Alphabet::English[letter][TOP],
+     MID => Alphabet::English[letter][MID],
+     BOT => Alphabet::English[letter][BOT]}
+end
 
-  def braille_to_word(braille_word)
-    english_word = []
-    braille_word.split.each do |letter|
-      english_word << braille_to_letter(letter)
+  def word_to_braille(english_word)
+    braille_word = []
+    english_word.split.each do |braille|
+      braille_word << letter_to_braille(braille)
     end
-    english_word.join
+    braille_word.join
   end
-
-  def braille_to_string(braille_string)
-    english_string = []
-    braille_string.split.each do |word|
-      english_string << braille_to_word(word)
-    end
-    english_string.insert.join
-    require 'pry'; binding.pry
-  end
+  #
+  # def braille_to_string(english_string)
+  #   braille_string = []
+  #   english_string.split.each do |braille|
+  #     braille_string << word_to_braille(braille)
+  #   end
+  #   braille_string.insert.join
+  #   require 'pry'; binding.pry
+  # end
 
 end
 # Input > Steps > OUTPUT

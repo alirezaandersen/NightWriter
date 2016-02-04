@@ -1,8 +1,8 @@
 module Alphabet
 
-  TOP = [0]
-  MID = [1]
-  BOT = [2]
+  TOP = 0
+  MID = 1
+  BOT = 2
 
   English = {
               "a"=> ["0.","..",".."],
@@ -176,4 +176,3 @@ module Alphabet
                   }
 
 end
-# p Alphabet.binary_transform
