@@ -62,7 +62,6 @@ include Alphabet
   end
 
 end
-
 # Input > Steps > OUTPUT
 # Description/Test = Input and OUTPUT
 # Code = Steps
