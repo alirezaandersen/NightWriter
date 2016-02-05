@@ -1,4 +1,4 @@
-require "braille_converter"
+require_relative "../lib/braille_converter"
 require "minitest/autorun"
 require "minitest/pride"
 
@@ -12,19 +12,27 @@ class BrailleConverterTest < Minitest::Test
   end
 
   def test_translate_single_braille_word_to_english_word
-    
+
     brailleconverter = BrailleConverter.new
-    assert_equal "0..... 0.0.0. .00...", brailleconverter.word_to_braille("ali")
+    x = [["0.", "0.", ".0"], ["..", "0.", "0."], ["..", "0.", ".."]]
+      assert_equal x, brailleconverter.word_to_braille("ali")
+    end
+
+    def test_translate_english_phrase_to_braille_phrase
+
+      brailleconverter = BrailleConverter.new
+      x = [["0.", "0.", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", "00"], ["00", ".0", "0.", "0.", ".0", "..", "00", ".0", "00", "0.", ".0"], ["..", "..", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", ".."]]
+      assert_equal x, brailleconverter.word_to_braille("hello world")
+    end
+
+    def test_translate_english_number_to_braille
+      skip
+      num =
+      assert_equal num, brailleconverter.word_to_braille("35")
+    end
+    # Input > Steps > OUTPUT
+    # Description/Test = Input and OUTPUT
+    # Code = Steps
+
+
   end
-
-  def test_translate_braille_phrases_to_english_phrase
-    skip
-    brailleconverter = BrailleConverter.new
-    assert_equal "cat hat", brailleconverter.braille_to_string("00.... 0..... .0000. 0.00.. 0..... .0000.")
-  end
-  # Input > Steps > OUTPUT
-  # Description/Test = Input and OUTPUT
-  # Code = Steps
-
-
-end
