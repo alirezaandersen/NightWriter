@@ -26,7 +26,8 @@ class BrailleConverterTest < Minitest::Test
     end
 
     def test_translate_english_number_to_braille
-      skip
+      brailleconverter = BrailleConverter.new
+      x = 
       num =
       assert_equal num, brailleconverter.word_to_braille("35")
     end
