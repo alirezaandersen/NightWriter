@@ -1,4 +1,4 @@
-require_relative "../lib/braille_converter"
+require_relative "../lib/english_to_braille_converter"
 require "minitest/autorun"
 require "minitest/pride"
 
@@ -27,7 +27,7 @@ class BrailleConverterTest < Minitest::Test
 
     def test_translate_english_number_to_braille
       brailleconverter = BrailleConverter.new
-      x = 
+      x =
       num =
       assert_equal num, brailleconverter.word_to_braille("35")
     end
