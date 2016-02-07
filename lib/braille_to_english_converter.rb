@@ -24,12 +24,21 @@ class EnglishConverter
   end
 
   def braille_to_english(braille_string)
-       Alphabet::Braille.merge(Alphabet::BrailleNumber).fetch(braille_string)
+      #  Alphabet::Braille.merge(Alphabet::BrailleNumber).fetch(braille_string)
+       Alphabet::Braille.fetch(braille_string)
   end
+
+  def print_braille_phrases_to_english_phrases(top,mid,bot)
+    english_string = braille_phrases_to_english_phrases(top,mid,bot)
+
+    p english_string
+  end
+
 
   def braille_phrases_to_english_phrases(top,mid,bot)
     cap = 0
     final_string = ''
+    output = []
     bs = chunks_to_braille_strings(top,mid,bot)
     bs.each do |string|
       if string == '.....0'
@@ -42,16 +51,8 @@ class EnglishConverter
       else
         final_string = string
       end
-      print braille_to_english(final_string)
+      output <<  braille_to_english(final_string)
     end
-    puts
+    output.join
   end
-
-
-  # if string == ".....0".delete
-  #   next letter.cap
-  #   cap.delete next letter.capitalize
-
-
-
 end

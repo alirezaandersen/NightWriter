@@ -39,14 +39,15 @@ class BrailleConverter
     }
   end
 
-  def braille_wrap
-    lines = []
-    if @braille_word_top.join.length <= 80
-      lines << get_braille_line
-    else
-      get_braille_lines
-    end
-  end
+
+  # def braille_wrap
+  #   lines = []
+  #   if @braille_word_top.join.length <= 80
+  #     lines << get_braille_line
+  #   else
+  #     get_braille_lines
+  #   end
+  # end
 
   def get_braille_line
     [@braille_word_top.join,@braille_word_mid.join,@braille_word_bot.join]
@@ -86,9 +87,3 @@ end
 # Input > Steps > OUTPUT
 # Description/Test = Input and OUTPUT
 # Code = Steps
-#
-# runner = BrailleConverter.new
-# runner.word_to_braille("hello world!")
-# puts
-#
-# runner.print_word_to_braille
