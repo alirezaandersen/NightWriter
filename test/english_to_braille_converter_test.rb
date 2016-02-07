@@ -5,13 +5,19 @@ require "minitest/pride"
 
 class BrailleConverterTest < Minitest::Test
 
-  def test_translate_single_letter_to_braille_character
+  def test_Module_accepts_english_character_input
     brailleconverter = BrailleConverter.new
-    x = {0=>"0.", 1=>"..", 2=>".."}
-    assert_equal x , brailleconverter.letter_to_braille("a")
+    assert_equal 61, Alphabet::English.keys.length
   end
 
-  def test_translate_single_braille_word_to_english_word
+
+  def test_translate_single_english_letter_to_braille_letter
+    brailleconverter = BrailleConverter.new
+    x = [["0."], [".."], [".."]]
+    assert_equal x, brailleconverter.word_to_braille("a")
+  end
+
+  def test_translate_single_word_english_to_braille_word
 
     brailleconverter = BrailleConverter.new
     x = [["0.", "0.", ".0"], ["..", "0.", "0."], ["..", "0.", ".."]]
@@ -24,6 +30,33 @@ class BrailleConverterTest < Minitest::Test
     x = [["0.", "0.", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", "00"], ["00", ".0", "0.", "0.", ".0", "..", "00", ".0", "00", "0.", ".0"], ["..", "..", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", ".."]]
     assert_equal x, brailleconverter.word_to_braille("hello world")
   end
+
+  def test_translates_braille_space_character_to_english_space
+    brailleconverter = BrailleConverter.new
+    assert_equal "......", brailleconverter.word_to_braille(" ").join
+  end
+
+  def test_translate_braille_lowercase_letter_to_english_lower_case_letter
+  brailleconverter = BrailleConverter.new
+  assert_equal [["0."], [".."], [".."]], brailleconverter.word_to_braille("a")
+  assert_equal  [["0.", "0."], ["..", "0."], ["..", ".."]], brailleconverter.word_to_braille("b")
+  assert_equal [["0.", "0.", "00"], ["..", "0.", ".."], ["..", "..", ".."]], brailleconverter.word_to_braille("c")
+  end
+
+  def test_braille_translate_capital_letters
+    brailleconverter = BrailleConverter.new
+    assert_equal [["..0."], ["...."], [".0.."]], brailleconverter.word_to_braille("A")
+    assert_equal  [["..0.", "..0."], ["....", "..0."], [".0..", ".0.."]], brailleconverter.word_to_braille("B")
+    assert_equal [["..0.", "..0.", "..00"], ["....", "..0.", "...."], [".0..", ".0..", ".0.."]], brailleconverter.word_to_braille("C")
+  end
+
+  def test_braille_translate_valid_characters
+    brailleconverter = BrailleConverter.new
+    assert_equal [[".."], ["00"], ["0."]], brailleconverter.word_to_braille("!")
+    assert_equal  [["..", ".."], ["00", ".."], ["0.", "00"]], brailleconverter.word_to_braille("-")
+    assert_equal [["..", "..", ".."], ["00", "..", "0."], ["0.", "00", "00"]], brailleconverter.word_to_braille("?")
+  end
+
 
   def test_translate_english_number_to_braille
     brailleconverter = BrailleConverter.new
@@ -40,12 +73,19 @@ class BrailleConverterTest < Minitest::Test
   end
 
   def test_braille_wraps_after_80_characters
-    skip
     brailleconverter = BrailleConverter.new
     brailleconverter.word_to_braille("this project has led me to get more confused about load path of files")
     braille_lines = brailleconverter.get_braille_lines
     assert_equal 80, braille_lines[0][0].length
   end
+
+  def test_braille_inputs_array_of_strings
+    brailleconverter = BrailleConverter.new
+    brailleconverter.word_to_braille("Broncos Win!")
+    assert_equal [], brailleconverter.array_of_strings
+  end
+
+
 
 end
 # Input > Steps > OUTPUT

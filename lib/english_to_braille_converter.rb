@@ -40,17 +40,20 @@ class BrailleConverter
   end
 
 
-  # def braille_wrap
-  #   lines = []
-  #   if @braille_word_top.join.length <= 80
-  #     lines << get_braille_line
-  #   else
-  #     get_braille_lines
-  #   end
-  # end
+  def braille_wrap
+    lines = []
+    if @braille_word_top.join.length < 80
+
+      lines << get_braille_line
+    else
+      get_braille_lines
+    end
+  end
 
   def get_braille_line
+
     [@braille_word_top.join,@braille_word_mid.join,@braille_word_bot.join]
+
   end
 
   def get_braille_lines
@@ -61,7 +64,7 @@ class BrailleConverter
     lines = []
     @braille_word_top.map.with_index{|braille,index|
       total_len += braille.length
-      if total_len >=80
+      if total_len >80
 
         lines << array_of_strings(top_line,mid_line,bot_line)
         total_len = 0
@@ -73,6 +76,7 @@ class BrailleConverter
       bot_line << @braille_word_bot[index]
     }
     lines << array_of_strings(top_line,mid_line,bot_line)
+    # binding.pry
   end
 
   def clear_values *vals
@@ -81,6 +85,7 @@ class BrailleConverter
 
   def array_of_strings *dupness
     dupness.map{ |dupness| dupness.dup}
+    # binding.pry
   end
 
 end

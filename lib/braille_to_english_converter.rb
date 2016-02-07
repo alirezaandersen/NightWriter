@@ -9,12 +9,13 @@ class EnglishConverter
     chunk_len = 2
     increment = 2
     chunks = []
-
+    # binding.pry
     (braille.chomp.length/increment).times {
       chunks << braille[i,chunk_len]
       i+=increment
     }
     chunks
+
   end
 
   def chunks_to_braille_strings(top,mid,bot)

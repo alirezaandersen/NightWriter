@@ -5,7 +5,6 @@ class FileReader
 
   def self.read(filename)
     File.read(filename)
-    # binding.pry
   end
 
   def self.readlines(filename)
@@ -26,7 +25,6 @@ class FileWriter
   end
 
   def write_lines(lines)
-    #f = File.new(@filename)
     File.open(@filename,'w'){ |f|
       lines.each{ |top,mid,bot|
         f.puts([top,mid,bot])
