@@ -1,4 +1,4 @@
-require_relative "../lib/night_reader"
+require "./lib/night_reader"
 require "minitest/autorun"
 require "minitest/pride"
 require 'pry'
@@ -7,8 +7,8 @@ require 'pry'
 class NightReaderTest < Minitest::Test
 
   def setup
-    @infile = "incoming_braille.txt"
-    @outfile = "output_english.txt"
+    @infile = "./test/converter_test/braille_input.txt"
+    @outfile = "./test/converter_test/english_output.txt"
     @night = NightReader.new(@infile,@outfile)
   end
 

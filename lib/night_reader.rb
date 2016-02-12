@@ -1,14 +1,12 @@
 require 'pry'
 require 'colorize'
 require_relative 'file_helper'
-require_relative 'braille_to_english_converter'
+require_relative 'english_converter'
 
 
 class NightReader
 
-
   attr_reader :reader
-
 
   def initialize(inFile,outFile)
     @reader = FileReader.readlines(inFile)

@@ -1,25 +1,35 @@
 require 'pry'
 require_relative 'alphabet'
 
-
 class BrailleConverter
-
-  attr_accessor :braille_word_top, :braille_word_mid, :braille_word_bot
 
   include Alphabet
 
+  attr_accessor :braille_word_top, :braille_word_mid, :braille_word_bot
+
+
   def initialize
+
     @braille_word_top = []
     @braille_word_mid = []
     @braille_word_bot = []
   end
 
-  def letter_to_braille(letter)
+  def is_digit?(letter)
+    return true if letter =~ /\A\d+\Z/
+    true if Float(letter) rescue false
+  end
+
+  def get_braille_char(letter,position)
     entire_english_alphabet = Alphabet::English.merge(Alphabet::EnglishNumber)
-    {TOP => entire_english_alphabet[letter][TOP],
-      MID => entire_english_alphabet[letter][MID],
-      BOT => entire_english_alphabet[letter][BOT]}
-    end
+    return is_digit?(letter) ? entire_english_alphabet["#"][position] + entire_english_alphabet[letter][position] : entire_english_alphabet[letter][position]
+  end
+
+  def letter_to_braille(letter)
+    {TOP => get_braille_char(letter,TOP),
+      MID => get_braille_char(letter,MID),
+      BOT => get_braille_char(letter,BOT),}
+  end
 
   def word_to_braille(english_word)
     english_word.chars.each do |char|
@@ -39,11 +49,9 @@ class BrailleConverter
     }
   end
 
-
   def braille_wrap
     lines = []
     if @braille_word_top.join.length < 80
-
       lines << get_braille_line
     else
       get_braille_lines
@@ -51,9 +59,7 @@ class BrailleConverter
   end
 
   def get_braille_line
-
     [@braille_word_top.join,@braille_word_mid.join,@braille_word_bot.join]
-
   end
 
   def get_braille_lines
@@ -76,7 +82,6 @@ class BrailleConverter
       bot_line << @braille_word_bot[index]
     }
     lines << array_of_strings(top_line,mid_line,bot_line)
-    # binding.pry
   end
 
   def clear_values *vals
@@ -85,10 +90,16 @@ class BrailleConverter
 
   def array_of_strings *dupness
     dupness.map{ |dupness| dupness.dup}
-    # binding.pry
   end
 
 end
 # Input > Steps > OUTPUT
 # Description/Test = Input and OUTPUT
 # Code = Steps
+# c = BrailleConverter.new
+#p c.letter_to_braille('1')  # .0.0000.....
+
+
+#top => .00.
+#mid => .0..
+#bot => 00..

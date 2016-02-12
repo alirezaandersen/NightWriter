@@ -1,4 +1,4 @@
-require_relative "../lib/braille_to_english_converter"
+require "./lib/english_converter"
 require "minitest/autorun"
 require "minitest/pride"
 
