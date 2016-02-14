@@ -18,8 +18,10 @@ class NightWriter#encryptor(reads message and translates it)
   end
 
   def print_braille_to_file(output_filename)
-    @converter.word_to_braille(@reader)
-    lines = @converter.braille_wrap
-    @writer.write_lines(lines)
-  end
+  @converter.word_to_braille(@reader)
+  #lines = @converter.braille_wrap
+  lines = @converter.get_braille_line
+  @writer.write_line(lines)
+  #  puts "Creating " + output_filename.colorize(:red) + " containing " + File.read(output_filename).gsub("\n","").length.to_s + " characters"
+end
 end

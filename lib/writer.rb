@@ -17,4 +17,4 @@ if ARGV.length == 2
   puts "Created " + output_filename.colorize(:red) + " containing " + File.read(input_filename).gsub("\n","").length.to_s + " characters"
 end
 
-#to call from terminal# ruby ./lib/writer.rb output_english.txt
+#to call from terminal# ./lib/writer.rb ./test/converter_test/english_input.txt ./test/converter_test/braille_output.txt

@@ -14,19 +14,32 @@ class NightWriterTest < Minitest::Test
 # ruby ./lib/writer.rb ./test/converter_test/english_input.txt ./test/converter_test/braille_output.txt
 
   def test_message_recieves_input
-    assert_equal "Ali and ziba went for a walk", @night.reader
+    assert_equal "Ali and Ziba went for a really long walk around the block 21 times", @night.reader
   end
 
 
   def test_new_file_is_written
+    skip
     `rm #{@outfile}` if File.exists?@outfile
     system(`which ruby`.chomp, "./lib/writer.rb",@infile,@outfile)
-    assert_equal ["..0.0..0..0.0000..0..00.0....00.00.0..000.0...0....00.0.0.\n","....0.0......0.0...00.0.....00.0.000..0..000......00..0...\n",".0..0.......0.....00.........0..0.0.....0.0........0..0.0.\n"],File.readlines(@outfile)
-  end
+    assert_equal ["..0.0..0..0.0000....0..00.0....00.00.0..000.0...0...0.0.0.0.0.00..0.0.0000...00.0.0...0.0.0.0.0000...00.0...0.0.0.000....00..00....0.0000..0
+   ","....0.0......0.0.....00.0.....00.0.000..0..000......00.0..0.0..0..0..0.000..00..0.......00.0...0.0..0000.0..0.0..0.......00..0....000....00.
+   ",".0..0.......0......000.........0..0.0.....0.0.......0.....0.0.00..0.0.0......0..0.0.....0.0.000.....0.........0.0...0...00..00....0...0...0.
+   "]end
 
   def test_returns_out_going_message_length
     system(`which ruby`.chomp, "./lib/reader.rb",@infile,@outfile)
-    assert_equal 176,  File.read(@outfile).chomp.length
+    assert_equal 66,  File.read(@infile).chomp.length
+  end
+
+  def test_recieves_incoming_inputs_message_length
+    system(`which ruby`.chomp, "./lib/reader.rb",@infile,@outfile)
+    assert_equal 422,  File.read(@outfile).chomp.length
+  end
+
+  def test_message_tanslate_english_to_braille
+    assert_equal "Ali and Ziba went for a really long walk around the block 21 times", @night.reader
+    system(`which ruby`.chomp, "./lib/writer.rb",@infile,@outfile)
   end
 
 
