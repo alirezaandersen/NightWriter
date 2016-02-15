@@ -25,6 +25,7 @@ class NightReader
 
   def print_english_to_file(output_filename)
     (top, mid, bot) = @reader.map{|line| line.chomp }
+    binding.pry if top.nil? || mid.nil? || bot.nil?
      t= @converter.get_braille_chunks(top)
      m= @converter.get_braille_chunks(mid)
      b= @converter.get_braille_chunks(bot)

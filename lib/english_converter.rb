@@ -10,17 +10,7 @@ class EnglishConverter
   end
 
   def get_braille_chunks(braille)
-    braille.gsub("\\n",'')
-    i = 0
-    chunk_len = 2
-    increment = 2
-    chunks = []
-    (braille.chomp.length/increment).times {
-      chunks << braille[i,chunk_len]
-      i+=increment
-    }
-    chunks
-
+    braille.scan(/.{1,2}/)
   end
 
   def chunks_to_braille_strings(top,mid,bot)
@@ -48,6 +38,9 @@ class EnglishConverter
     return braille_string.nil? ? nil : BRAILLE_CAP + braille_string
   end
 
+  def braille_is_space?(braille_string)
+    (braille_string == BRAILLE_SPACE) && (@num_lock == true)
+  end
 
   def braille_to_num(braill_string)
     return braille_string.nil? ? nil : BRAILLE_NUM + braille_string
@@ -72,65 +65,22 @@ class EnglishConverter
           @num_lock = true
           next
       end
+      @num_lock = false if braille_is_space?(string)
 
-      if (string == BRAILLE_SPACE) && (@num_lock == true)
-          #if num_lock is on, turn it off
-          @num_lock = false
-      end
-
-      final_string = if braille_is_cap?string
-                        braille_to_cap(bs[index+1])
-                      else
-                          string
-                      end
-
+      final_string = (braille_is_cap?string) ? braille_to_cap(bs[index+1]) : string
       output << braille_to_english(final_string) unless final_string.nil?
-
     end
     output.join
   end
 
 end
-englishconverter = EnglishConverter.new
 
-#test_capitalize_first_letter
-t= englishconverter.get_braille_chunks("..0.0..0")
-m= englishconverter.get_braille_chunks("....0.0.")
-b= englishconverter.get_braille_chunks(".0..0...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
 
-#test_hash_symbol_works_with_capital
-t= englishconverter.get_braille_chunks(".0..0.0..0")
-m= englishconverter.get_braille_chunks(".0....0.0.")
-b= englishconverter.get_braille_chunks("00.0..0...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
-
-#test_hash_symbol_converts_letter_to_number
-t= englishconverter.get_braille_chunks(".00...0..0")
-m= englishconverter.get_braille_chunks(".0....0.0.")
-b= englishconverter.get_braille_chunks("00....0...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
-
-#test_hash_symbol_differentiate_between_Capital_letter_and_number
-t= englishconverter.get_braille_chunks(".0..0.0..0")
-m= englishconverter.get_braille_chunks(".0....0.0.")
-b= englishconverter.get_braille_chunks("00.0..0...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
-
-#test_Braille_number_converts_at_space
-t= englishconverter.get_braille_chunks(".00.....0..0")
-m= englishconverter.get_braille_chunks(".0......0.0.")
-b= englishconverter.get_braille_chunks("00.....00...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
-
-#test_number_converts_back_to_letters_when_space_follows_number
-t= englishconverter.get_braille_chunks("..0..00.....0..0")
-m= englishconverter.get_braille_chunks(".....0......0.0.")
-b= englishconverter.get_braille_chunks(".0..00.....00...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
-
-#test_capital_letter_and_numbers_work_together
-t= englishconverter.get_braille_chunks("..0..00.....0..0")
-m= englishconverter.get_braille_chunks(".....0......0.0.")
-b= englishconverter.get_braille_chunks(".0..00.....00...")
-p englishconverter.braille_phrases_to_english_phrases(t,m,b)
+# englishconverter = EnglishConverter.new
+#
+# 
+# t= englishconverter.get_braille_chunks("..0.0..0")
+# m= englishconverter.get_braille_chunks("....0.0.")
+# b= englishconverter.get_braille_chunks(".0..0...")
+# p englishconverter.braille_phrases_to_english_phrases(t,m,b)
+# #

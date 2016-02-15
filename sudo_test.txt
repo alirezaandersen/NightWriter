@@ -1,0 +1,8 @@
+test_consecutive_braille_numbers_to_english_numbers
+=> '123456'
+written - test_mixed_braille_numbers_and_characters_to_english
+=> '123 hello 123'
+test_empty_braille_input_should_convert_nothing
+=> '' = ''
+written_-_test_braille_special_characters
+=> "!"

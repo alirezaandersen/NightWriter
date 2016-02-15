@@ -41,58 +41,23 @@ class BrailleConverter
   end
 
   def print_word_to_braille
-    lines = braille_wrap
-    lines.each{ |top,mid,bot|
-      puts top
-      puts mid
-      puts bot
-    }
+    braille_wrap.each{ |top,mid,bot| print "%s\n%s\n%s\n" % [top,mid,bot] }
   end
 
   def braille_wrap
-    lines = []
-    if @braille_word_top.join.length < 80
-      lines << get_braille_line
-    else
-      get_braille_lines
-    end
-  end
-
-  def get_braille_line
-    [@braille_word_top.join,@braille_word_mid.join,@braille_word_bot.join]
-  end
-
-  def get_braille_lines
-    top_line = ''
-    mid_line = ''
-    bot_line = ''
-    total_len = 0
-    lines = []
-    @braille_word_top.map.with_index{|braille,index|
-      total_len += braille.length
-      if total_len >80
-
-        lines << array_of_strings(top_line,mid_line,bot_line)
-        total_len = 0
-
-        clear_values(top_line,mid_line,bot_line)
-      end
-      top_line << @braille_word_top[index]
-      mid_line << @braille_word_mid[index]
-      bot_line << @braille_word_bot[index]
-    }
-    lines << array_of_strings(top_line,mid_line,bot_line)
-  end
-
-  def clear_values *vals
-    vals.each{ |val| val.clear }
-  end
-
-  def array_of_strings *dupness
-    dupness.map{ |dupness| dupness.dup}
+    [@braille_word_top.join.scan(/.{1,80}/), @braille_word_mid.join.scan(/.{1,80}/), @braille_word_bot.join.scan(/.{1,80}/)].transpose
   end
 
 end
+
+# braille_converter = BrailleConverter.new
+# braille_converter.word_to_braille("A1 Steak Sauce")
+# p braille_converter.print_word_to_braille.join
+
+
+
+
+
 # Input > Steps > OUTPUT
 # Description/Test = Input and OUTPUT
 # Code = Steps

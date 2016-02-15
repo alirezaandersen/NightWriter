@@ -4,11 +4,16 @@ require 'pry'
 class FileReader
 
   def self.read(filename)
+    # binding.pry
     File.read(filename)
   end
 
   def self.readlines(filename)
-    File.readlines(filename)
+    # binding.pry
+    braille_lines = []
+    lines = File.read(filename).split("\n")
+    until lines.empty? do braille_lines << lines.shift(3) end
+    (top,mid,bot) = braille_lines.transpose.map{|line| line.join}
   end
 end
 
