@@ -50,21 +50,9 @@ class BrailleConverter
 
 end
 
-# braille_converter = BrailleConverter.new
-# braille_converter.word_to_braille("A1 Steak Sauce")
-# p braille_converter.print_word_to_braille.join
-
-
-
-
 
 # Input > Steps > OUTPUT
 # Description/Test = Input and OUTPUT
 # Code = Steps
 # c = BrailleConverter.new
 #p c.letter_to_braille('1')  # .0.0000.....
-
-
-#top => .00.
-#mid => .0..
-#bot => 00..
