@@ -1,7 +1,7 @@
 require 'colorize'
 require 'pry'
 require_relative 'file_helper'
-require_relative 'english_to_braille_converter'
+require_relative 'braille_converter'
 
 class NightWriter#encryptor(reads message and translates it)
   attr_reader :reader, :writer, :converter
@@ -18,10 +18,12 @@ class NightWriter#encryptor(reads message and translates it)
   end
 
   def print_braille_to_file(output_filename)
+    # binding.pry
     @converter.word_to_braille(@reader)
     lines = @converter.braille_wrap
+    # lines = @converter.get_braille_line
+    #@writer.write_line(lines)
     @writer.write_lines(lines)
-    puts "Created " + output_filename.colorize(:red) + " containing " + File.read(output_filename).gsub("\n","").length.to_s + " characters"
-
+    #  puts "Creating " + output_filename.colorize(:red) + " containing " + File.read(output_filename).gsub("\n","").length.to_s + " characters"
   end
 end

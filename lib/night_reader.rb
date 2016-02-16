@@ -1,14 +1,12 @@
 require 'pry'
 require 'colorize'
 require_relative 'file_helper'
-require_relative 'braille_to_english_converter'
+require_relative 'english_converter'
 
 
 class NightReader
 
-
   attr_reader :reader
-
 
   def initialize(inFile,outFile)
     @reader = FileReader.readlines(inFile)
@@ -27,6 +25,7 @@ class NightReader
 
   def print_english_to_file(output_filename)
     (top, mid, bot) = @reader.map{|line| line.chomp }
+    binding.pry if top.nil? || mid.nil? || bot.nil?
      t= @converter.get_braille_chunks(top)
      m= @converter.get_braille_chunks(mid)
      b= @converter.get_braille_chunks(bot)
