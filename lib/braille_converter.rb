@@ -9,7 +9,6 @@ class BrailleConverter
 
 
   def initialize
-
     @braille_word_top = []
     @braille_word_mid = []
     @braille_word_bot = []

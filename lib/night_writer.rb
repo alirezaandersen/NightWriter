@@ -3,7 +3,7 @@ require 'pry'
 require_relative 'file_helper'
 require_relative 'braille_converter'
 
-class NightWriter#encryptor(reads message and translates it)
+class NightWriter  #encryptor(reads message and translates it)
   attr_reader :reader, :writer, :converter
 
   def initialize(inFile,outFile)
@@ -18,7 +18,6 @@ class NightWriter#encryptor(reads message and translates it)
   end
 
   def print_braille_to_file(output_filename)
-    # binding.pry
     @converter.word_to_braille(@reader)
     lines = @converter.braille_wrap
     # lines = @converter.get_braille_line

@@ -14,7 +14,6 @@ class NightWriterTest < Minitest::Test
   end
 # ruby ./lib/writer.rb ./test/converter_test/english_input.txt ./test/converter_test/braille_output.txt
   def test_message_recieves_input
-    # binding.pry
     assert_equal "Ali and Ziba went for a really long walk around the block 21 times", FileReader.read(@infile).chomp
   end
 

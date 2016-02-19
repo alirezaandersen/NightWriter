@@ -58,7 +58,6 @@ class EnglishConverter
     final_string = ''
     output = []
     bs = chunks_to_braille_strings(top,mid,bot)
-    # binding.pry
     bs.each.with_index do |string,index|
       next if braille_is_cap?(bs[index-1])
       if (string == BRAILLE_NUM) && is_digit?(bs[index+1])
@@ -78,7 +77,7 @@ end
 
 # englishconverter = EnglishConverter.new
 #
-# 
+#
 # t= englishconverter.get_braille_chunks("..0.0..0")
 # m= englishconverter.get_braille_chunks("....0.0.")
 # b= englishconverter.get_braille_chunks(".0..0...")
